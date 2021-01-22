@@ -42,7 +42,7 @@
 #' @import lubridate
 #' @import rts
 #' 
-#' @example
+#' @examples
 #' # load MDD dataset
 #' data(MDD)
 #' data(RefForest)
@@ -194,7 +194,7 @@ PlugPhenAnoProbMapPLUS <-
     endCluster()
   }
 
-#' @example 
+#' @examples
 #' source("PlugPhenAnoProbMapPLUS_20190902.R") # Load in the mapping function
 #' dates <- lan.dates # The dates from your time-series brick (x)
 #' PlugPhenAnoProbMapPLUS(s=x,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
