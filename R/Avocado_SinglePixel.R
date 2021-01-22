@@ -34,7 +34,7 @@
 #' @import lubridate
 #' @import rts
 #' 
-#' @example
+#' @examples
 #' # load MDD dataset
 #' data(MDD)
 #' data(RefForest)
@@ -175,7 +175,7 @@ function(x,phen,dates,h,anop,rge) {
   AnomPLUSProb[1:len2]
 }
 
-#' @example 
+#' @examples
 #sample.rts <- rts(ndmibrick,lan.dates)
 #pix.num <- cellFromXY(sample.rts,c(X,Ycoordinates))
 #ts.inter <- extract(sample.rts,pix.num)
