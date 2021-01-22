@@ -1,4 +1,10 @@
-Package: SCCTempConverter
+Package: AVOCADO
 Type: Package
-Title: Temperature Conversion Package for Demonstration
-Version: 0.0.1.0
+Title: Anomaly Vegetation Change Detection
+Version: 0.0.1
+Date: 2021-01-22
+Author: Mathieu Decuyper, Roberto O. Chávez
+Description: Anomaly based change detection algorithm that detects forest disturbance and regrowth in a continuous way.
+Other package dependencies: rgdal, raster, nnphen, bfastSpatial, RColorBrewer, rts, lubridate
+Installation: install.packages("remotes")
+              remotes::install_github("MDecuy/AVOCADO")
