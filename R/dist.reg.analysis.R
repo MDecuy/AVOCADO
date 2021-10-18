@@ -656,7 +656,7 @@ dist.reg <-
 #' @title Avocado algorithm - Wall-to-wall map version
 #' @name dist.reg.map
 #' @description Continuous vegetation change detection 
-#' @author  Roberto O. Chavez, Mathieu Decuyper
+#' @author  Roberto O. Chávez, Mathieu Decuyper
 #' @param s RasterStack of anomalies and their likelihood created with \code{\link{PlugPhenAnoRFDMapPLUS}
 #' @param dates The julian dates for each scene in the time series brick. Should be in the following format: "YYYY-MM-DD"
 #' @param rfd The reference frequency distribution. Determines if an anomaly falls outside the 95 percent of the reference frequency distribution. For example a value that fall in a RDF >= 0.95, indicates that the detected anomaly belongs to the 5 percent of lowest values and is a potential disturbance/change.
