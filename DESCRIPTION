@@ -1,10 +1,23 @@
 Package: AVOCADO
 Type: Package
 Title: Anomaly Vegetation Change Detection
+Encoding: UTF-8
 Version: 0.0.1
 Date: 2021-01-22
 Author: Mathieu Decuyper, Roberto O. Chávez
+Maintainer: <mathieu.decuyper@wur.nl>
 Description: Anomaly based change detection algorithm that detects forest disturbance and regrowth in a continuous way.
-Other package dependencies: rgdal, raster, nnphen, bfastSpatial, RColorBrewer, rts, lubridate
+Other package dependencies: rgdal, raster, npphen, bfastSpatial, RColorBrewer, rts, lubridate
+Depends:
+    R (>= 3.3.0),
+    rgdal,
+    npphen,
+    raster,
+    bfastSpatial,
+    RColorBrewer,
+    rts,
+    lubridate
+License: GPL-3
 Installation: install.packages("remotes")
               remotes::install_github("MDecuy/AVOCADO")
+RoxygenNote: 7.1.2
