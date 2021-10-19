@@ -18,7 +18,7 @@ dist.reg.map(
 )
 }
 \arguments{
-\item{s}{RasterStack of anomalies and their likelihood created with\code{\link{PlugPhenAnoRFDMapPLUS}}}
+\item{s}{RasterStack of anomalies and their likelihood created with \code{\link{PlugPhenAnoRFDMapPLUS}}}
 
 \item{dates}{The julian dates for each scene in the time series brick. Should be in the following format: "YYYY-MM-DD"}
 
