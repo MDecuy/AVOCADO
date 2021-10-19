@@ -53,5 +53,5 @@ nCluster=1,cdates=3,outname="YourDirectory/ChangeMap.tif", format="GTiff", datat
 \code{\link{dist.reg}}
 }
 \author{
-Roberto O. Chavez, Mathieu Decuyper
+Roberto O. Chávez, Mathieu Decuyper
 }
