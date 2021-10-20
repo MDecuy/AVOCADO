@@ -2,10 +2,9 @@
 % Please edit documentation in R/PLUGPhenAnoRFDPLUS.R
 \name{PLUGPhenAnoRFDMapPLUS}
 \alias{PLUGPhenAnoRFDMapPLUS}
-\alias{PlugPhenAnoRFDMapPLUS}
 \title{Avocado algorithm - Wall-to-wall map version}
 \usage{
-PlugPhenAnoRFDMapPLUS(
+PLUGPhenAnoRFDMapPLUS(
   s,
   phen,
   dates,
@@ -51,7 +50,7 @@ PlugPhenAnoRFDMapPLUS(s=x,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outn
 }
 }
 \seealso{
-\code{\link{PlugPhenAnoRFDPLUS}}
+\code{\link{PLUGPhenAnoRFDPLUS}}
 }
 \author{
 Roberto O. Chavez, Mathieu Decuyper
