@@ -82,7 +82,7 @@ ano_rfd <- PLUGPhenAnoRFDPLUS(x=x,phen=phen,dates=dates,h=1,anop=c(1:nlayers),rg
 }
 }
 \seealso{
-\code{\link{PlugPhenAnoRFDMapPLUS}}
+\code{\link{PLUGPhenAnoRFDMapPLUS}}
 }
 \author{
 Roberto O. Chavez, Mathieu Decuyper

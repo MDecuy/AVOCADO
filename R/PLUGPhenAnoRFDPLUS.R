@@ -9,7 +9,7 @@
 #' @param anop Numeric vector with the number of values that are in x. For those values the anomalies and likelihoods will be calculated based on the phen. For example a time series has 450 values, so anop=c(1:450).
 #' @param rge A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)
 #' @return vector of length([x]*2) containing all anomalies, followed by their likelihoods
-#' @seealso \code{\link{PlugPhenAnoRFDMapPLUS}}
+#' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @import npphen
 #' @import raster
 #' @import RColorBrewer
@@ -194,7 +194,7 @@ function(x,phen,dates,h,anop,rge) {
 #' @import lubridate
 #' @import rts
 #' 
-#' @seealso \code{\link{PlugPhenAnoRFDPLUS}}
+#' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
 #' \donttest{
 #' source("PlugPhenAnoRFDMapPLUS_20190902.R") # Load in the mapping function
@@ -202,7 +202,7 @@ function(x,phen,dates,h,anop,rge) {
 #' PlugPhenAnoRFDMapPLUS(s=x,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
 #' }
 #' @export
-PlugPhenAnoRFDMapPLUS <-
+PLUGPhenAnoRFDMapPLUS <-
 function(s,phen,dates,h,anop,nCluster,outname,format,datatype,rge) {
   ff <- function(x) {
     

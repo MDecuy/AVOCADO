@@ -7,7 +7,7 @@
 dist.reg(x, dates, rfd, dstrb_thr, rgrow_thr, cdates)
 }
 \arguments{
-\item{x}{Vector of anomaly and likelihood time-series created in using \code{\link{PlugPhenAnoRFDPLUS}}}
+\item{x}{Vector of anomaly and likelihood time-series created in using \code{\link{PLUGPhenAnoRFDPLUS}}}
 
 \item{dates}{The julian dates for each scene in the time series. Should be in the following format: "YYYY-MM-DD"}
 
