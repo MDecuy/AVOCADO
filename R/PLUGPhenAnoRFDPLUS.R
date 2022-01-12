@@ -70,7 +70,7 @@
 #'sort$corr <- corr
 #'x <- sort$vec
 #'dates <- as.Date(sort$date)
-#'ano_rfd <- PLUGPhenAnoRFDPLUS(x=MDD,phen=phen,dates=dates,h=1,anop=c(1:nlayers),rge=c(1,10000))
+#'ano_rfd <- PLUGPhenAnoRFDPLUS(x=x,phen=phen,dates=dates,h=1,anop=c(1:nlayers),rge=c(1,10000))
 #'}
 #' @export
 PLUGPhenAnoRFDPLUS <-
