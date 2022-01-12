@@ -23,7 +23,7 @@
 #' data(MDD)
 #' data(RefForest)
 #' ############ Section 1: Reference vegetatation curve ################### 
-#' x <- brick("MDD")
+#' x <- brick(MDD)
 #' lan.info <- getSceneinfo(names(x))
 #' lan.dates <-as.Date(lan.info$date)
 #' loc <- readOGR(dsn=path.expand("YourDirectory"), layer="RefForest")
