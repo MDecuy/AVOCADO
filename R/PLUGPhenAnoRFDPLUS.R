@@ -21,15 +21,14 @@
 #' \donttest{
 #' #' # load MDD dataset
 #' data(MDD)
-#' data(RefForest)
+#' data(MDD_RefForest)
 #' ############ Section 1: Reference vegetatation curve ################### 
-#' x <- brick(MDD)
-#' lan.info <- getSceneinfo(names(x))
+#' lan.info <- getSceneinfo(names(MDD))
 #' lan.dates <-as.Date(lan.info$date)
-#' loc <- readOGR(dsn=path.expand("YourDirectory"), layer="RefForest")
-#' #loc <- spTransform(loc, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") #in case of different coordinate systems
-#' ref.ext<-extent(loc)
-#' ref.brick <- crop(x,ref.ext)
+#' MDDref <- readOGR(dsn=path.expand("YourDirectory"), layer="MDDref")
+#' #MDDref <- spTransform(MDDref, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") #in case of different coordinate systems
+#' ref.ext<-extent(MDDref)
+#' ref.brick <- crop(MDD,ref.ext)
 #' fin <- nrow(ref.brick)*ncol(ref.brick)
 #' phen <- extract(ref.brick,1)
 #' d1 <- lan.dates
@@ -57,7 +56,7 @@
 #' PhenKplot(phen,d1,h=1,nGS=365, xlab="DOY",ylab="NDMI",rge=c(0,10000))
 #' 
 #' ############ Section 2:Calculate anomaly and their likelihoods values ###################
-#'sample.rts <- rts(ndmibrick,lan.dates)
+#'sample.rts <- rts(MDD,lan.dates)
 #'pix.num <- cellFromXY(sample.rts,c(X,Ycoordinates))
 #'ts.inter <- extract(sample.rts,pix.num)
 #'vec <- as.vector(ts.inter)
@@ -71,7 +70,7 @@
 #'sort$corr <- corr
 #'x <- sort$vec
 #'dates <- as.Date(sort$date)
-#'ano_rfd <- PLUGPhenAnoRFDPLUS(x=x,phen=phen,dates=dates,h=1,anop=c(1:nlayers),rge=c(1,10000))
+#'ano_rfd <- PLUGPhenAnoRFDPLUS(x=MDD,phen=phen,dates=dates,h=1,anop=c(1:nlayers),rge=c(1,10000))
 #'}
 #' @export
 PLUGPhenAnoRFDPLUS <-
@@ -197,9 +196,9 @@ function(x,phen,dates,h,anop,rge) {
 #' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
 #' \donttest{
-#' source("PlugPhenAnoRFDMapPLUS_20190902.R") # Load in the mapping function
+#' source("PLUGPhenAnoRFDMapPLUS_20190902.R") # Load in the mapping function
 #' dates <- lan.dates # The dates from your time-series brick (x)
-#' PLUGPhenAnoRFDMapPLUS(s=x,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
+#' PLUGPhenAnoRFDMapPLUS(s=MDD,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
 #' }
 #' @export
 PLUGPhenAnoRFDMapPLUS <-
