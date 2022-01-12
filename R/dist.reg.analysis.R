@@ -1335,7 +1335,7 @@ dist.reg.map <-
     #----------------------------------------------------------------------------------------
     # Function using n clusters
     beginCluster(n=nCluster) # write 'beginCluster(n=3)' for using e.g. 3 cores, default uses all available cores)
-    dates <<- dates
-    clusterR(x=s,calc, args=list(ff),export=c('dates'),filename=outname,format=format,datatype=datatype,overwrite=T)
+    dates_npphen <<- dates
+    clusterR(x=s,calc, args=list(ff),export=c('dates_npphen'),filename=outname,format=format,datatype=datatype,overwrite=T)
     endCluster()
   }
