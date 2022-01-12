@@ -4,7 +4,7 @@ Title: Anomaly Vegetation Change Detection
 Encoding: UTF-8
 Version: 0.0.1
 Date: 2021-01-22
-Author: Mathieu Decuyper, Roberto O. Chávez
+Author: Mathieu Decuyper [cre, aut], Roberto O. Chávez [cre, aut], José A. Lastra [ctb]
 Maintainer: <mathieu.decuyper@wur.nl>
 Description: Anomaly based change detection algorithm that detects forest disturbance and regrowth in a continuous way.
 Other package dependencies: rgdal, raster, npphen, bfastSpatial, RColorBrewer, rts, lubridate
