@@ -199,7 +199,7 @@ function(x,phen,dates,h,anop,rge) {
 #' \donttest{
 #' source("PlugPhenAnoRFDMapPLUS_20190902.R") # Load in the mapping function
 #' dates <- lan.dates # The dates from your time-series brick (x)
-#' PlugPhenAnoRFDMapPLUS(s=x,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
+#' PLUGPhenAnoRFDMapPLUS(s=x,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
 #' }
 #' @export
 PLUGPhenAnoRFDMapPLUS <-
@@ -306,8 +306,8 @@ function(s,phen,dates,h,anop,nCluster,outname,format,datatype,rge) {
   # cluster processing
   
   beginCluster(n=nCluster) # write 'beginCluster(n=3)' for using e.g. 3 cores, default uses all available cores)
-  dates <<- dates
+  dates_npphen <<- dates
   phen <<- phen
-  clusterR(x=s,calc, args=list(ff),export=c('dates'),filename=outname,format=format,datatype=datatype,overwrite=T)
+  clusterR(x=s,calc, args=list(ff),export = c('dates_npphen'),filename=outname,format=format,datatype=datatype,overwrite=T)
   endCluster()
 }
