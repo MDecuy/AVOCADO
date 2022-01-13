@@ -21,7 +21,7 @@
 #' \donttest{
 #' #' # load MDD dataset
 #' data(MDD)
-#' data(MDD_RefForest)
+#' data(MDDref)
 #' ############ Section 1: Reference vegetatation curve ################### 
 #' lan.info <- getSceneinfo(names(MDD))
 #' lan.dates <-as.Date(lan.info$date)
