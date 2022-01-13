@@ -19,9 +19,9 @@
 #' @import rts
 #' @examples
 #' \donttest{
-#' #' # load MDD dataset
-#' data(MDD)
-#' data(MDDref)
+#' #' # load MDD datasets
+#' MDD <- stack(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
+#' load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
 #' ############ Section 1: Reference vegetatation curve ################### 
 #' lan.info <- getSceneinfo(names(MDD))
 #' lan.dates <-as.Date(lan.info$date)
