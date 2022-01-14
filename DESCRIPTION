@@ -9,7 +9,7 @@ Maintainer: <mathieu.decuyper@wur.nl>
 Description: Anomaly based change detection algorithm that detects forest disturbance and regrowth in a continuous way.
 Other package dependencies: rgdal, raster, npphen, bfastSpatial, RColorBrewer, rts, lubridate
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.5.0),
     rgdal,
     npphen,
     raster,
