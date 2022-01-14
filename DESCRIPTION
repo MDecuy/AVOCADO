@@ -21,4 +21,3 @@ License: GPL-3
 Installation: install.packages("remotes")
               remotes::install_github("MDecuy/AVOCADO")
 RoxygenNote: 7.1.2
-LazyData: true
