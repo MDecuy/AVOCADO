@@ -28,7 +28,7 @@ Calculate the Anomaly and their likelihood values (based on the difference betwe
 \examples{
 \donttest{
 #' # load MDD datasets
-MDD <- stack(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
+MDD <- stack(system.file("extdata", "MDD_NDMI_1990_2020.gri", package = "AVOCADO"))
 load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
 ############ Section 1: Reference vegetatation curve ################### 
 lan.info <- getSceneinfo(names(MDD))
