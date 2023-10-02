@@ -56,7 +56,7 @@
 #' phen <- round(ts.med)
 #' PhenKplot(phen,d1,h=1,nGS=365, xlab="DOY",ylab="NDMI",rge=c(0,10000))
 #'
-#' ############ Section 2:Calculate anomaly and their likelihoods values ###################
+#' ############ Section 2:Calculate anomaly and their likelihoods values ##################
 #' sample.rts <- rts(MDD,lan.dates)
 #' pix.num <- cellFromXY(sample.rts,c(X,Ycoordinates))
 #' ts.inter <- extract(sample.rts,pix.num)
