@@ -11,68 +11,52 @@
 #' @return vector of length([x]*2) containing all anomalies, followed by their position within the reference frequency distribution (RFD)
 #' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @import npphen
-#' @import raster
-#' @import RColorBrewer
-#' @import rgdal
-#' @import bfastSpatial
 #' @import lubridate
-#' @import rts
+#' @import terra
 #' @examples
 #' \donttest{
-#' #' # load MDD datasets
-#' MDD <- stack(system.file("extdata", "MDD_NDMI_1990_2020.gri", package = "AVOCADO"))
-#' load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
-#' ############ Section 1: Reference vegetatation curve ###################
-#' lan.info <- getSceneinfo(names(MDD))
-#' lan.dates <- as.Date(lan.info$date)
-#' MDDref <- readOGR(dsn = path.expand("YourDirectory"), layer = "MDDref")
-#' # MDDref <- spTransform(MDDref, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") #in case of different coordinate systems
-#' ref.ext <- extent(MDDref)
-#' ref.brick <- crop(MDD, ref.ext)
-#' fin <- nrow(ref.brick) * ncol(ref.brick)
-#' phen <- extract(ref.brick, 1)
+#' #==========================================================================================================
+#' # Reading landsat data and getting scene dates 
+#' ndmibrick <- rast("~/Dropbox/GITHUB/avocado_testing_site/Pinus_test1_Landsat_NDMI_2000-01-01_2022-12-31.tif")#Load in your raster stack with the dates
+#' #Load in the csv file obtained in GEE - beware column with the dates and "date" as header
+#' dates.table <- read.csv('~/Dropbox/GITHUB/avocado_testing_site/Pinus_test1_Date_Landsat_NDMI_2000_2022.csv')
+#' lan.dates <- as.Date(dates.table$date, format='%d-%m-%Y') #change order to '%Y-%m-%d'if you only get NA. Make sure that in this case there is a column name 'dates' in the csv file
+
+#' #===================================================================================================================
+#' #Create the reference curve
+#' ref.core.shp <- vect("~/Dropbox/GITHUB/avocado_testing_site/Pinus_RefFor1.shp")
+#' plot(ndmibrick[[1]])
+#' plot(ref.core.shp,add=T)
+
+#' ref.brick <- crop(ndmibrick,ref.core.shp)
+#' ref.brick <- mask(ref.brick,ref.core.shp)
+#' plot(ref.brick[[1]])
+#' plot(ref.core.shp,add=T)
+
+#' fin <- nrow(ref.brick)*ncol(ref.brick)
+#' p2 <- as.numeric(extract(ref.brick,1))
 #' d1 <- lan.dates
-#' }
 
 #' for(i in 2:fin) {
-#'  pp <-extract(ref.brick,i)
-#'  phen <-c(phen,pp)
-#'  d1 <-c(d1,lan.dates)
+#'   pp <-as.numeric(extract(ref.brick,i))
+#'   p2 <-c(p2,pp)
+#'   d1 <-c(d1,lan.dates)
 #' }
-#' PhenKplot(phen,d1,h=1,nGS=365, xlab="DOY",ylab="NDMI",rge=c(0,10000))
-#'
-#' Alternative: to take the median of all the pixel observations per date (Be aware: smoother curve but loss of natural variation)
-#' ts.med <- NULL
-#' for (i in 1:nlayers(ref.brick)) {
-#'   if (all(is.na(getValues(ref.brick[[i]])))) {
-#'     median <- NA
-#'   } else {
-#'     nn <- ncell(ref.brick[[i]])
-#'     ss <- sampleRegular(ref.brick[[i]], size=nn)
-#'     median <- median(ss, na.rm=T)
-#'   }
-#'   ts.med <- c(ts.med,median)
-#' }
-#' phen <- round(ts.med)
-#' PhenKplot(phen,d1,h=1,nGS=365, xlab="DOY",ylab="NDMI",rge=c(0,10000))
-#'
-#' ############ Section 2:Calculate anomaly and their likelihoods values ##################
-#' sample.rts <- rts(MDD,lan.dates)
-#' pix.num <- cellFromXY(sample.rts,c(X,Ycoordinates))
-#' ts.inter <- extract(sample.rts,pix.num)
-#' vec <- as.vector(ts.inter)
-#' dd <- lan.dates # NON SORTED DATES
-#' nn <- seq(1,length(vec),1)
-#' df <-data.frame(cbind(nn,dd))
-#' sort <-df[order(as.Date(df$dd)),]
-#' sort$vec <- vec
-#' sort$date <- as.Date(sort$dd)
-#' corr <- seq(1,length(vec),1)
-#' sort$corr <- corr
-#' x <- sort$vec
-#' dates <- as.Date(sort$date)
-#' ano_rfd <- PLUGPhenAnoRFDPLUS(x=x,phen=phen,dates=dates,h=1,anop=c(1:nlayers),rge=c(1,10000))
-#' }
+#' 
+#' PhenKplot(x=p2,d1,h=1, xlab="DOY",ylab="NDMI",rge=c(0,8000))
+
+#' #=========================================================================
+#' # Task 2, calculating ano-prob + dist-regrowth FOR A SINGLE PIXEL (to test out the parameters before running large areas)
+#' #Pixel location
+#' plot(ndmibrick[[1]])
+#' crs.data <- crs(ndmibrick)
+#' xy <- rbind(c(4.918970,51.478009))#Drought detection in 2018
+#' p <- vect(xy, crs=crs.data)
+#' plot(p, add=T)
+
+#' ts.inter <- as.numeric(extract(ndmibrick,p))
+#' plot(ts.inter, ylim=c(-2000,8000))
+#' #=========================================================================
 #' @export
 PLUGPhenAnoRFDPLUS <-
   function(x, phen, dates, h, anop, rge) {
