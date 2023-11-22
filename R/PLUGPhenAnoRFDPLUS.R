@@ -3,12 +3,12 @@
 #' @description Calculate the Anomaly and their likelihood values (based on the difference between the pixel values and reference vegetation) for a numeric vector
 #' @author  Roberto O. Chavez, Mathieu Decuyper
 #' @param x numeric vector. Time series of vegetation index (e.g. NDVI, EVI, NDMI)
-#' @param phen Numeric vector with the values of the reference vegetation
+#' @param phen Numeric vector with the values of the reference vegetation (all pixels of the reference area are considered)
 #' @param dates A date vector. The number of dates must be equal to the number of values of time series.
 #' @param h Numeric. Geographic hemisphere to define the starting date of the growing season. h=1 Northern Hemisphere; h=2 Southern Hemisphere.
 #' @param anop Numeric vector with the number of values that are in x. For those values the anomalies and likelihoods will be calculated based on the phen. For example a time series has 450 values, so anop=c(1:450).
 #' @param rge A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)
-#' @return vector of length([x]*2) containing all anomalies, followed by their likelihoods
+#' @return vector of length([x]*2) containing all anomalies, followed by their position within the reference frequency distribution (RFD)
 #' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @import npphen
 #' @import raster
