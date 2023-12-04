@@ -236,7 +236,7 @@ PLUGPhenAnoRFDMapPLUS <-
   function(s, phen, dates, h, anop, nCluster, outname, datatype, rge) {
     ff <- function(x) {
       # a.Preparing dataset
-
+      
       if (length(rge) != 2) {
         stop("rge must be a vector of length 2")
       }
@@ -246,35 +246,38 @@ PLUGPhenAnoRFDMapPLUS <-
       if (length(dates) != length(x)) {
         stop("N of dates and files do not match")
       }
-
+      if (length(x) < length(anop)) {
+        stop("Inconsistent anop. Argument anop can't be grater than length(x)")
+      }
+      
       # ref.min <- min(refp)
       # ref.max <- max(refp)
       ano.min <- min(anop)
       ano.max <- max(anop)
       ano.len <- ano.max - ano.min + 1
       len2 <- 2 * ano.len
-
+      
       if (ano.min >= ano.max) {
         stop("for anop, lower value > upper value")
       }
-
+      
       if (all(is.na(x))) {
         return(rep(NA, len2))
       }
-
-      DOY <- yday(dates)
+      
+      DOY <- lubridate::yday(dates)
       DOY[which(DOY == 366)] <- 365
       D1 <- cbind(DOY, phen)
       D2 <- cbind(DOY[ano.min:ano.max], x[ano.min:ano.max])
-
+      
       if (length(unique(D1[, 2])) < 10 | (nrow(D1) - sum(is.na(D1))) < (0.1 * length(D1))) {
         return(rep(NA, len2))
       }
-
+      
       if (all(is.na(D2[, 2]))) {
         return(rep(NA, len2))
       }
-
+      
       # b. Kernel calculation using the reference period (D1)
       if (h != 1 && h != 2) {
         stop("Invalid h")
@@ -285,57 +288,66 @@ PLUGPhenAnoRFDMapPLUS <-
           D1[i, 1] <- DOGS[which(DOGS[, 1] == D1[i, 1], arr.ind = TRUE), 2]
         }
       }
-
-      Hmat <- Hpi(na.omit(D1))
+      
+      Hmat <- ks::Hpi(na.omit(D1))
       Hmat[1, 2] <- Hmat[2, 1]
-      K1 <- kde(na.omit(D1), H = Hmat, xmin = c(1, rge[1]), xmax = c(365, rge[2]), gridsize = c(365, 500))
+      K1 <- ks::kde(na.omit(D1), H = Hmat, xmin = c(1, rge[1]), xmax = c(365, rge[2]), gridsize = c(365, 500))
       K1Con <- K1$estimate
       for (j in 1:365) {
         Kdiv <- sum(K1$estimate[j, ])
         ifelse(Kdiv == 0, K1Con[j, ] <- 0, K1Con[j, ] <- K1$estimate[j, ] / sum(K1$estimate[j, ]))
       }
-
+      
+      first.no.NA.DOY <- min(D1[,1][which(is.na(D1[,2])==FALSE)])
+      last.no.NA.DOY <- max(D1[,1][which(is.na(D1[,2])==FALSE)])
+      
       MAXY <- apply(K1Con, 1, max)
       for (i in 1:365) {
-        MAXY[i] <- median(K1$eval.points[[2]][which(K1Con[i, ] == MAXY[i], arr.ind = TRUE)])
+        n.select <- which(K1Con[i, ] == MAXY[i], arr.ind = TRUE)
+        if (length(n.select) > 1) {
+          n <- n.select[1]
+          MAXY[i] <- NA
+        }
+        if (length(n.select) == 1) {
+          n <- n.select
+          MAXY[i] <- median(K1$eval.points[[2]][n])
+        }
+        if (i < first.no.NA.DOY) {MAXY[i] <- NA}
+        if (i > last.no.NA.DOY) {MAXY[i] <- NA}
       }
-
+      
       # c. Calculating cumulative bivariate density distribution
-
+      
       h2d <- list()
       h2d$x <- seq(1, 365)
       h2d$y <- seq(rge[1], rge[2], len = 500)
       h2d$density <- K1Con / sum(K1Con)
       uniqueVals <- rev(unique(sort(h2d$density)))
-      cumProbs <- cumsum(uniqueVals)
-      names(cumProbs) <- uniqueVals
+      cumRFDs <- cumsum(uniqueVals)
+      names(cumRFDs) <- uniqueVals
       h2d$cumDensity <- matrix(nrow = nrow(h2d$density), ncol = ncol(h2d$density))
-      h2d$cumDensity[] <- cumProbs[as.character(h2d$density)]
-
-      # c. Anomaly calculation (D2)
-
+      h2d$cumDensity[] <- cumRFDs[as.character(h2d$density)]
+      na.sta <- first.no.NA.DOY-1
+      na.end <- last.no.NA.DOY+1
+      if(na.sta>=1) {h2d$cumDensity[1:na.sta,] <- NA}
+      if(na.end<=365) {h2d$cumDensity[na.end:365,] <- NA}
+      
+      # d. Calculating anomalies AND their RFD based on D2
+      
       if (h == 2) {
         for (i in 1:nrow(D2)) {
           D2[i, 1] <- DOGS[which(DOGS[, 1] == D2[i, 1], arr.ind = TRUE), 2]
         }
       }
-
-      # d. Calculating anomalies AND their likelihoods based on D2
-
-      if (h == 2) {
-        for (i in 1:nrow(D2)) {
-          D2[i, 1] <- DOGS[which(DOGS[, 1] == D2[i, 1], arr.ind = TRUE), 2]
-        }
-      }
-
+      
       # d.1 Anomalies
       Anoma <- rep(NA, ano.len)
       for (i in 1:nrow(D2)) {
         Anoma[i] <- as.integer(D2[i, 2] - MAXY[D2[i, 1]])
       }
       Anoma[1:ano.len]
-
-      # d.2 Likelihood
+      
+      # d.2 RFD
       rowAnom <- matrix(NA, nrow = nrow(D2), ncol = 500)
       for (i in 1:nrow(D2)) {
         rowAnom[i, ] <- abs(h2d$y - D2[i, 2])
@@ -347,17 +359,17 @@ PLUGPhenAnoRFDMapPLUS <-
           which.min(x)
         }
       }))
-      AnomProb <- rep(NA, nrow(D2))
+      AnomRFD <- rep(NA, nrow(D2))
       for (i in 1:nrow(D2)) {
-        AnomProb[i] <- h2d$cumDensity[D2[i, 1], rowAnom2[i]]
+        AnomRFD[i] <- h2d$cumDensity[D2[i, 1], rowAnom2[i]]
       }
-      AnomProbPerc <- round(100 * (AnomProb))
-      AnomProbPerc[1:ano.len]
+      AnomRFDPerc <- round(100 * (AnomRFD))
+      AnomRFDPerc[1:ano.len]
       # Two results in a single numeric vector
-      AnomPLUSProb <- c(Anoma[1:ano.len], AnomProbPerc[1:ano.len])
-      AnomPLUSProb[1:len2]
+      AnomPLUSRFD <- c(Anoma[1:ano.len], AnomRFDPerc[1:ano.len])
+      AnomPLUSRFD[1:len2]
     }
-
+    
     #----------------------------------------------------------------------------------------
     # cluster processing
     app(s, fun = ff, filename = outname, cores = nCluster, overwrite = T, wopt = list(datatype = datatype))
