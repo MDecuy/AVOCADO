@@ -12,11 +12,10 @@ Depends:
 Imports: terra (>= 1.7-78), npphen, lubridate, stats
 Suggests: sf, parallel
 License: GPL-3
-Encoding: UTF-8
 URL: https://github.com/MDecuy/AVOCADO, https://www.pucv.cl/uuaa/labgrs/proyectos/tutorial-to-the-anomaly-vegetation-change-detection-avocado
 BugReports: https://github.com/MDecuy/AVOCADO/issues
 Roxygen: list(old_usage = TRUE)
 Installation: install.packages("remotes")
               remotes::install_github("MDecuy/AVOCADO")
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 NeedsCompilation: no
