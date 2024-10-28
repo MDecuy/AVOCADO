@@ -47,7 +47,7 @@
 #' }
 #'
 #' @export
-PLUGPhenAnoRFDPlus <-
+PLUGPhenAnoRFDPLUS <-
   function(x, phen, dates, h, anop, rge) {
     # a.Preparing dataset
 
