@@ -12,6 +12,8 @@ PLUGPhenAnoRFDMapPLUS(s, phen, dates, h, anop, nCluster, outname, datatype,
 
 \item{phen}{Numeric vector with the values of the reference vegetation}
 
+\item{dates}{A date vector. The number of dates must be equal to the number of values of time series.}
+
 \item{h}{Numeric. Geographic hemisphere to define the starting date of the growing season. h=1 Northern Hemisphere; h=2 Southern Hemisphere.}
 
 \item{anop}{Numeric vector with the number of values that are in x. For those values the anomalies and likelihoods will be calculated based on the phen. For example a time series has 450 values, so anop=c(1:450).}
@@ -20,7 +22,7 @@ PLUGPhenAnoRFDMapPLUS(s, phen, dates, h, anop, nCluster, outname, datatype,
 
 \item{outname}{Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster}
 
-\item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link{writeFormats}}}
+\item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}}
 
 \item{rge}{A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)}
 }
@@ -32,9 +34,10 @@ Calculate the Anomaly and their likelihood values (based on the difference betwe
 }
 \examples{
 \donttest{
-source("PLUGPhenAnoRFDMapPLUS_20190902.R") # Load in the mapping function
 dates <- lan.dates # The dates from your time-series brick (x)
-PLUGPhenAnoRFDMapPLUS(s = MDD, dates = dates, h = 1, phen = phen, anop = c(1:n), nCluster = 1, outname = "YourDirectory/Filename.tif", format = "GTiff", datatype = "INT2S", rge = c(0, 10000))
+PLUGPhenAnoRFDMapPLUS(s = MDD, dates = dates, h = 1, phen = phen, 
+anop = c(1:n), nCluster = 1, outname = "YourDirectory/Filename.tif", 
+format = "GTiff", datatype = "INT2S", rge = c(0, 10000))
 }
 }
 \seealso{
