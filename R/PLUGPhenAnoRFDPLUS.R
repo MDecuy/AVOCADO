@@ -217,12 +217,7 @@ PLUGPhenAnoRFDPlus <-
 #' @return RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
 
 #' @import npphen
-#' @import raster
 #' @import RColorBrewer
-#' @import rgdal
-#' @import bfastSpatial
-#' @import lubridate
-#' @import rts
 #'
 #' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
