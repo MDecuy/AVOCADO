@@ -14,7 +14,7 @@
 #' @importFrom lubridate yday
 #' @importFrom graphics abline
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #==========================================================================================================
 #' # Reading landsat data and getting scene dates 
 #' #Load in your raster stack with the dates
@@ -232,7 +232,7 @@ PLUGPhenAnoRFDPlus <-
 #'
 #' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' dates <- lan.dates # The dates from your time-series brick (x)
 #' PLUGPhenAnoRFDMapPLUS(s = MDD, dates = dates, h = 1, phen = phen, 
 #' anop = c(1:n), nCluster = 1, outname = "YourDirectory/Filename.tif", 

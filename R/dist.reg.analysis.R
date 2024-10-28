@@ -15,7 +15,7 @@
 #' @import RColorBrewer
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' dist.reg(x = ano_rfd, dates = dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730, cdates = 3)
 #' }
 #'
@@ -805,7 +805,7 @@ dist.reg <-
 #' @import RColorBrewer
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' source("dist.reg.map.R") # Load in the mapping function
 #' dates <- lan.dates # The dates from your time-series brick (x)
 #' ano.rfd.st <- brick("ano.rfd.st.tif") # Load in the anomaly-rfd brick that you created in section 2
