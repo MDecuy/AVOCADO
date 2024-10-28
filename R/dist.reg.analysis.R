@@ -46,7 +46,7 @@
 #' PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
 #'
 #' ## Anomaly calculation
-#' anom_rfd <- PLUGPhenAnoRFDPlus(x = px_series, phen = phen, dates = MDD_dates, h = 2, anop = c(1:1063), rge = c(1, 10000))
+#' anom_rfd <- PLUGPhenAnoRFDPLUS(x = px_series, phen = phen, dates = MDD_dates, h = 2, anop = c(1:1063), rge = c(1, 10000))
 #'
 #' ## disturbance/regrowth analysis
 #' dist.reg(x = anom_rfd, dates = MDD_dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730, cdates = 3)

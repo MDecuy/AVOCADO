@@ -35,6 +35,8 @@ Continuous vegetation change detection
 \examples{
 \dontrun{
 #' # Loading raster data
+#' library(terra)
+library(npphen)
 MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
 # load dates vector
 load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
