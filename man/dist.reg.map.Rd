@@ -4,18 +4,8 @@
 \alias{dist.reg.map}
 \title{Avocado algorithm - Wall-to-wall map version}
 \usage{
-dist.reg.map(
-  s,
-  dates,
-  rfd,
-  dstrb_thr,
-  rgrow_thr,
-  cdates,
-  nCluster,
-  outname,
-  format,
-  datatype
-)
+dist.reg.map(s, dates, rfd, dstrb_thr, rgrow_thr, cdates, nCluster, outname,
+  datatype)
 }
 \arguments{
 \item{s}{RasterStack of anomalies and their likelihood created with \code{\link{PLUGPhenAnoRFDMapPLUS}}}
@@ -34,8 +24,6 @@ dist.reg.map(
 
 \item{outname}{Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster}
 
-\item{format}{Character. Output file type. More information: See \code{\link{writeFormats}}}
-
 \item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link{dataType}}}
 }
 \value{
@@ -47,9 +35,11 @@ Continuous vegetation change detection
 \examples{
 source("dist.reg.map.R") # Load in the mapping function
 dates <- lan.dates # The dates from your time-series brick (x)
-ano.rfd.st <- brick("ano.rfd.st.tif") #Load in the anomaly-rfd brick that you created in section 2
-dist.reg.map(s=ano.rfd.st, dates=lan.dates, rfd=0.95, dstrb_thr=1, rgrow_thr=730,
-nCluster=1,cdates=3,outname="YourDirectory/ChangeMap.tif", format="GTiff", datatype="INT2S")
+ano.rfd.st <- brick("ano.rfd.st.tif") # Load in the anomaly-rfd brick that you created in section 2
+dist.reg.map(
+  s = ano.rfd.st, dates = lan.dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730,
+  nCluster = 1, cdates = 3, outname = "YourDirectory/ChangeMap.tif", format = "GTiff", datatype = "INT2S"
+)
 }
 \seealso{
 \code{\link{dist.reg}}

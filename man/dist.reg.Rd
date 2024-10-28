@@ -27,7 +27,7 @@ Continuous vegetation change detection
 }
 \examples{
 \donttest{
-dist.reg(x=ano_rfd,dates=dates, rfd=0.95, dstrb_thr=1, rgrow_thr=730, cdates=3)
+dist.reg(x = ano_rfd, dates = dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730, cdates = 3)
 }
 
 }

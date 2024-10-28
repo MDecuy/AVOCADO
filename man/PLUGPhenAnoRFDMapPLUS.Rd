@@ -4,18 +4,8 @@
 \alias{PLUGPhenAnoRFDMapPLUS}
 \title{Avocado algorithm - Wall-to-wall map version}
 \usage{
-PLUGPhenAnoRFDMapPLUS(
-  s,
-  phen,
-  dates,
-  h,
-  anop,
-  nCluster,
-  outname,
-  format,
-  datatype,
-  rge
-)
+PLUGPhenAnoRFDMapPLUS(s, phen, dates, h, anop, nCluster, outname, datatype,
+  rge)
 }
 \arguments{
 \item{s}{RasterStack time series of vegetation index (e.g. NDVI, EVI, NDMI)}
@@ -29,8 +19,6 @@ PLUGPhenAnoRFDMapPLUS(
 \item{nCluster}{Numeric. Number of CPU's to be used for the job.}
 
 \item{outname}{Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster}
-
-\item{format}{Character. Output file type. More information: See \code{\link{writeFormats}}}
 
 \item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link{writeFormats}}}
 
@@ -46,7 +34,7 @@ Calculate the Anomaly and their likelihood values (based on the difference betwe
 \donttest{
 source("PLUGPhenAnoRFDMapPLUS_20190902.R") # Load in the mapping function
 dates <- lan.dates # The dates from your time-series brick (x)
-PLUGPhenAnoRFDMapPLUS(s=MDD,dates=dates,h=1,phen=phen,anop=c(1:n), nCluster=1,outname="YourDirectory/Filename.tif", format="GTiff", datatype="INT2S",rge=c(0,10000))
+PLUGPhenAnoRFDMapPLUS(s = MDD, dates = dates, h = 1, phen = phen, anop = c(1:n), nCluster = 1, outname = "YourDirectory/Filename.tif", format = "GTiff", datatype = "INT2S", rge = c(0, 10000))
 }
 }
 \seealso{
