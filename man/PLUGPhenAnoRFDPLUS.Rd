@@ -2,10 +2,9 @@
 % Please edit documentation in R/PLUGPhenAnoRFDPLUS.R
 \name{PLUGPhenAnoRFDPLUS}
 \alias{PLUGPhenAnoRFDPLUS}
-\alias{PLUGPhenAnoRFDPlus}
 \title{Avocado algorithm - Single pixel version}
 \usage{
-PLUGPhenAnoRFDPlus(x, phen, dates, h, anop, rge)
+PLUGPhenAnoRFDPLUS(x, phen, dates, h, anop, rge)
 }
 \arguments{
 \item{x}{numeric vector. Time series of vegetation index (e.g. NDVI, EVI, NDMI)}
