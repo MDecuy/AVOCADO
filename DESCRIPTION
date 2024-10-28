@@ -9,7 +9,7 @@ Maintainer: <mathieu.decuyper@wur.nl>
 Description: Anomaly based change detection algorithm that detects forest disturbance and regrowth in a continuous way. For more information, please check                the following paper: Decuyper et al. (2022) <https://doi.org/10.1016/j.rse.2021.112829>.
 Depends:
     R (>= 3.6.0)
-Imports: terra (>= 1.7-78), npphen, lubridate, stats, RColorBrewer
+Imports: terra (>= 1.7-78), npphen, lubridate, ks, stats, RColorBrewer
 Suggests: sf, parallel
 License: GPL-3
 URL: https://github.com/MDecuy/AVOCADO, https://www.pucv.cl/uuaa/labgrs/proyectos/tutorial-to-the-anomaly-vegetation-change-detection-avocado
