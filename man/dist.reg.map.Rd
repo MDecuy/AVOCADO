@@ -33,7 +33,7 @@ The output will consist of a RasterStack with 16 bands: Band1=disturbance detect
 Continuous vegetation change detection
 }
 \examples{
-\donttest{
+\dontrun{
 source("dist.reg.map.R") # Load in the mapping function
 dates <- lan.dates # The dates from your time-series brick (x)
 ano.rfd.st <- brick("ano.rfd.st.tif") # Load in the anomaly-rfd brick that you created in section 2

@@ -26,7 +26,7 @@ The output will consist of a vector with 16 values: 1st value = year of disturba
 Continuous vegetation change detection
 }
 \examples{
-\donttest{
+\dontrun{
 dist.reg(x = ano_rfd, dates = dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730, cdates = 3)
 }
 

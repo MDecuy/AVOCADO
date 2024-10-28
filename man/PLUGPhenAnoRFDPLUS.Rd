@@ -27,7 +27,7 @@ vector of length([x]*2) containing all anomalies, followed by their position wit
 Calculate the Anomaly and their likelihood values (based on the difference between the pixel values and reference vegetation) for a numeric vector
 }
 \examples{
-\donttest{
+\dontrun{
 #==========================================================================================================
 # Reading landsat data and getting scene dates 
 #Load in your raster stack with the dates

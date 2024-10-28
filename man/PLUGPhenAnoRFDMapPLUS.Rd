@@ -33,7 +33,7 @@ RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their l
 Calculate the Anomaly and their likelihood values (based on the difference between the pixel values and reference vegetation) for a RasterStack
 }
 \examples{
-\donttest{
+\dontrun{
 dates <- lan.dates # The dates from your time-series brick (x)
 PLUGPhenAnoRFDMapPLUS(s = MDD, dates = dates, h = 1, phen = phen, 
 anop = c(1:n), nCluster = 1, outname = "YourDirectory/Filename.tif", 
