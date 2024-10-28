@@ -797,7 +797,7 @@ dist.reg <-
 #' @param cdates Sets the number of consecutive data points for a change to be detected (minimum 2 and maximum 5 data points).
 #' @param nCluster Numeric. Number of CPU's to be used for the job.
 #' @param outname Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster
-#' @param datatype Character vector that determines the interpretation of values written to disk. More information: See \code{\link{dataType}}
+#' @param datatype Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}
 #' @return The output will consist of a RasterStack with 16 bands: Band1=disturbance detection; Band2=corresponding anomalies band 1; Band3=regrowth detection; Band4=corresponding anomalies band 3; Band5= 2nd disturbance detection for data points that had a previous disturbance and regrowth; Band 6 etc.
 #' @seealso \code{\link{dist.reg}}
 #' @import npphen
@@ -805,13 +805,16 @@ dist.reg <-
 #' @import RColorBrewer
 #'
 #' @examples
+#' \donttest{
 #' source("dist.reg.map.R") # Load in the mapping function
 #' dates <- lan.dates # The dates from your time-series brick (x)
 #' ano.rfd.st <- brick("ano.rfd.st.tif") # Load in the anomaly-rfd brick that you created in section 2
 #' dist.reg.map(
 #'   s = ano.rfd.st, dates = lan.dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730,
-#'   nCluster = 1, cdates = 3, outname = "YourDirectory/ChangeMap.tif", format = "GTiff", datatype = "INT2S"
+#'   nCluster = 1, cdates = 3, outname = "YourDirectory/ChangeMap.tif", 
+#'   format = "GTiff", datatype = "INT2S"
 #' )
+#' }
 #' @export
 dist.reg.map <-
   function(s, dates, rfd, dstrb_thr, rgrow_thr, cdates, nCluster, outname, datatype) {
