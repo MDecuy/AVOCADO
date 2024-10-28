@@ -11,7 +11,7 @@
 #' @return vector of length([x]*2) containing all anomalies, followed by their position within the reference frequency distribution (RFD)
 #' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @import npphen
-#' @import lubridate
+#' @importFrom lubridate yday
 #' @examples
 #' \donttest{
 #' #==========================================================================================================
@@ -218,7 +218,7 @@ PLUGPhenAnoRFDPlus <-
 
 #' @import npphen
 #' @import terra
-#' @import lubridate
+#' @importFrom lubridate yday 
 #' @import RColorBrewer
 #'
 #' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}

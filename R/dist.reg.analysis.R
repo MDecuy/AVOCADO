@@ -13,7 +13,6 @@
 #'
 #' @import npphen
 #' @import RColorBrewer
-#' @import lubridate
 #'
 #' @examples
 #' \donttest{
@@ -804,7 +803,6 @@ dist.reg <-
 #' @import npphen
 #' @import terra
 #' @import RColorBrewer
-#' @import lubridate
 #'
 #' @examples
 #' source("dist.reg.map.R") # Load in the mapping function
