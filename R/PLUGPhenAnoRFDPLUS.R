@@ -12,7 +12,6 @@
 #' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @import npphen
 #' @import lubridate
-#' @import terra
 #' @examples
 #' \donttest{
 #' #==========================================================================================================
@@ -57,6 +56,7 @@
 #' ts.inter <- as.numeric(extract(ndmibrick,p))
 #' plot(ts.inter, ylim=c(-2000,8000))
 #' #=========================================================================
+#' }
 #' @export
 PLUGPhenAnoRFDPlus <-
   function(x, phen, dates, h, anop, rge) {
@@ -217,6 +217,8 @@ PLUGPhenAnoRFDPlus <-
 #' @return RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
 
 #' @import npphen
+#' @import terra
+#' @import lubridate
 #' @import RColorBrewer
 #'
 #' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
