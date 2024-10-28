@@ -34,13 +34,32 @@ Continuous vegetation change detection
 }
 \examples{
 \dontrun{
-source("dist.reg.map.R") # Load in the mapping function
-dates <- lan.dates # The dates from your time-series brick (x)
-ano.rfd.st <- brick("ano.rfd.st.tif") # Load in the anomaly-rfd brick that you created in section 2
+#' # Loading raster data
+MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+# load dates vector
+load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
+# load  reference forest shapefile
+load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
+# Create the reference curve
+ref.ext <- ext(MDDref)
+ref.brick <- crop(MDD, ref.ext)
+fin <- nrow(ref.brick) * ncol(ref.brick)
+phen <- as.numeric(terra::extract(ref.brick, 1))
+d1 <- MDD_dates
+for (i in 2:fin) {
+  pp <- as.numeric(terra::extract(ref.brick, i))
+  phen <- c(phen, pp)
+  d1 <- c(d1, MDD_dates)
+}
+PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
+
+## Disturbance/regrowth calculation
+# checking availiable cores and leave one free
+nc1 <- parallel::detectCores() - 1
+ano.rfd.st <- rast("YourDirectory/MDD_AnomalyLikelihood.tif") # Load in the anomaly-rfd brick that you created
 dist.reg.map(
-  s = ano.rfd.st, dates = lan.dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730,
-  nCluster = 1, cdates = 3, outname = "YourDirectory/ChangeMap.tif", 
-  format = "GTiff", datatype = "INT2S"
+  s = ano.rfd.st, dates = MDD_dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730,
+  nCluster = nc1, cdates = 3, outname = "YourDirectory/ChangeMap.tif", datatype = "INT2S"
 )
 }
 }
