@@ -34,10 +34,35 @@ Calculate the Anomaly and their likelihood values (based on the difference betwe
 }
 \examples{
 \dontrun{
-dates <- lan.dates # The dates from your time-series brick (x)
-PLUGPhenAnoRFDMapPLUS(s = MDD, dates = dates, h = 1, phen = phen, 
-anop = c(1:n), nCluster = 1, outname = "YourDirectory/Filename.tif", 
-format = "GTiff", datatype = "INT2S", rge = c(0, 10000))
+# Loading raster data
+MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+# load dates vector
+load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
+# load  reference forest shapefile
+load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
+# Create the reference curve
+ref.ext <- ext(MDDref)
+ref.brick <- crop(MDD, ref.ext)
+fin <- nrow(ref.brick) * ncol(ref.brick)
+phen <- as.numeric(terra::extract(ref.brick, 1))
+d1 <- MDD_dates
+for (i in 2:fin) {
+  pp <- as.numeric(terra::extract(ref.brick, i))
+  phen <- c(phen, pp)
+  d1 <- c(d1, MDD_dates)
+}
+PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
+
+## Anomaly calculation
+# checking availiable cores and leave one free
+nc1 <- parallel::detectCores() - 1
+PLUGPhenAnoRFDMapPLUS(
+  s = MDD, dates = MDD_dates, h = 1, phen = phen, anop = c(1:1063),
+  nCluster = nc1, outname = "YourDirectory/MDD_AnomalyLikelihood.tif",
+  datatype = "INT2S", rge = c(0, 10000)
+)
+# The output file contains all the anomalies, followed by all their likelihoods
+# and thus has twice the number of layers as the input raster stack.
 }
 }
 \seealso{
