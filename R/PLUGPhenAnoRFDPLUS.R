@@ -13,7 +13,14 @@
 #' @import npphen
 #' @importFrom lubridate yday
 #' @examples
-
+#' \donttest{
+#' #==========================================================================================================
+#' # Reading landsat data and getting scene dates 
+#' ndmibrick <- rast("~/Dropbox/GITHUB/avocado_testing_site/Pinus_test1_Landsat_NDMI_2000-01-01_2022-12-31.tif")#Load in your raster stack with the dates
+#' #Load in the csv file obtained in GEE - beware column with the dates and "date" as header
+#' dates.table <- read.csv('~/Dropbox/GITHUB/avocado_testing_site/Pinus_test1_Date_Landsat_NDMI_2000_2022.csv')
+#' lan.dates <- as.Date(dates.table$date, format='%d-%m-%Y') #change order to '%Y-%m-%d'if you only get NA. Make sure that in this case there is a column name 'dates' in the csv file
+#' 
 #' #===================================================================================================================
 #' #Create the reference curve
 #' ref.core.shp <- vect("~/Dropbox/GITHUB/avocado_testing_site/Pinus_RefFor1.shp")
@@ -50,6 +57,7 @@
 #' plot(ts.inter, ylim=c(-2000,8000))
 #' #=========================================================================
 #' }
+#' 
 #' @export
 PLUGPhenAnoRFDPlus <-
   function(x, phen, dates, h, anop, rge) {
