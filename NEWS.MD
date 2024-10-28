@@ -1,0 +1,13 @@
+AVOCADO 0.1.2 Oct 2024
+===========
+
+* Replace old libraries
+* Updated map function to use terra instead of raster
+* Fix installation issue [#18](https://github.com/MDecuy/AVOCADO/issues/18) namespace for undefined exports: PLUGPhenAnoRFDPLUS
+
+AVOCADO 0.0.1 January 2021
+===========
+
+* Add first AVOCADO version
+* Includes dist.reg.analysis and PLUGPhenAnoRFDPlus for vector time series analysis
+* Includes dist.reg.analysis and PLUGPhenAnoRFDPlus for vector time series analysis
