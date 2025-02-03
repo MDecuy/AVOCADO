@@ -205,6 +205,7 @@ PLUGPhenAnoRFDPLUS <-
 #' @param phen Numeric vector with the values of the reference vegetation
 #' @param dates A date vector. The number of dates must be equal to the number of values of time series.
 #' @param h Numeric. Geographic hemisphere to define the starting date of the growing season. h=1 Northern Hemisphere; h=2 Southern Hemisphere.
+#' @param anop Numeric vector with the number of values that are in x. For those values the anomalies and likelihoods will be calculated based on the phen. For example a time series has 450 values, so anop=c(1:450).
 #' @param rge A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)
 #' @return List which contains cumulative bivariate density distribution (cumDensity), and maximum likelihood of the vegetation-index–time space (MAXY) 
 #' @import npphen
@@ -234,7 +235,7 @@ PLUGPhenAnoRFDPLUS <-
 #'   phen <- c(phen, pp)
 #'   d1 <- c(d1, MDD_dates)
 #' }
-#' MDD_ref <- PhenRef2d(phen, d1, h = 1, rge = c(0, 10000))
+#' MDD_ref <- PhenRef2d(phen, d1, h = 1, anop = c(1:1063), rge = c(0, 10000))
 #' 
 #' # plot reference curve + probabilities (same result as using PhenKplot())
 #' image(MDD_ref$x, MDD_ref$y, MDD_ref$cumDensity, xlab = "DOY", ylab = "NMDI", font.lab = 2, breaks = c(0, 0.5, 0.75, 0.9, 0.95), col = grDevices::heat.colors(n = 4, alpha = 0.6))
@@ -245,7 +246,7 @@ PLUGPhenAnoRFDPLUS <-
 #' 
 #' @export
 PhenRef2d <-
-  function(phen, dates, h, rge) {
+  function(phen, dates, h, anop, rge) {
     # a.Preparing dataset
     
     if (length(rge) != 2) {
@@ -256,6 +257,15 @@ PhenRef2d <-
     }
     if (length(dates) != length(phen)) {
       stop("N of dates and files do not match")
+    }
+    
+    ano.min <- min(anop)
+    ano.max <- max(anop)
+    ano.len <- ano.max - ano.min + 1
+    len2 <- 2 * ano.len
+    
+    if (ano.min >= ano.max) {
+      stop("for anop, lower value > upper value")
     }
     
     DOY <- lubridate::yday(dates)
