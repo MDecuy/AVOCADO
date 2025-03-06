@@ -19,11 +19,11 @@
 #' # Loading raster data
 #' library(terra)
 #' library(npphen)
-#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 #' # load dates vector
 #' load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
-#' # load  reference forest shapefile
-#' load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
+#' # load  reference forest data (output from PhenRef2d)
+#' load(system.file("extdata", "MDD_forestReference.RData", package = "AVOCADO"))
 #' ## time series extraction for a single pixel
 #' px <- vect(cbind(-69.265, -12.48))
 #' plot(MDD[[1]])
@@ -31,22 +31,10 @@
 #'
 #' # extract series
 #' px_series <- as.numeric(terra::extract(MDD, px, ID = F))
-#' plot(MDD_dates, px_series, type = "l")
-#' # Create the reference curve
-#' ref.ext <- ext(MDDref)
-#' ref.brick <- crop(MDD, ref.ext)
-#' fin <- nrow(ref.brick) * ncol(ref.brick)
-#' phen <- as.numeric(terra::extract(ref.brick, 1))
-#' d1 <- MDD_dates
-#' for (i in 2:fin) {
-#'   pp <- as.numeric(terra::extract(ref.brick, i))
-#'   phen <- c(phen, pp)
-#'   d1 <- c(d1, MDD_dates)
-#' }
-#' PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
+#' plot(MDD_dates, px_series, type = "b")
 #'
 #' ## Anomaly calculation
-#' anom_rfd <- PLUGPhenAnoRFDPLUS(x = px_series, phen = phen, dates = MDD_dates, h = 2, anop = c(1:1063), rge = c(1, 10000))
+#' anom_rfd <- PLUGPhenAnoRFDPLUS(x = px_series, phenref = MDD_fref, dates = MDD_dates, h = 2, anop = c(1:1063), rge = c(1, 10000))
 #'
 #' ## disturbance/regrowth analysis
 #' dist.reg(x = anom_rfd, dates = MDD_dates, rfd = 0.95, dstrb_thr = 1, rgrow_thr = 730, cdates = 3)
@@ -840,25 +828,11 @@ dist.reg <-
 #' @examples
 #' \dontrun{
 #' #' # Loading raster data
-#' #' library(terra)
+#' library(terra)
 #' library(npphen)
-#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 #' # load dates vector
 #' load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
-#' # load  reference forest shapefile
-#' load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
-#' # Create the reference curve
-#' ref.ext <- ext(MDDref)
-#' ref.brick <- crop(MDD, ref.ext)
-#' fin <- nrow(ref.brick) * ncol(ref.brick)
-#' phen <- as.numeric(terra::extract(ref.brick, 1))
-#' d1 <- MDD_dates
-#' for (i in 2:fin) {
-#'   pp <- as.numeric(terra::extract(ref.brick, i))
-#'   phen <- c(phen, pp)
-#'   d1 <- c(d1, MDD_dates)
-#' }
-#' PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
 #'
 #' ## Disturbance/regrowth calculation
 #' # checking availiable cores and leave one free
