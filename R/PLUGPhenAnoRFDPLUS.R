@@ -212,7 +212,7 @@ PLUGPhenAnoRFDPLUS <-
 #' @import terra
 #' @importFrom lubridate yday
 #' @import RColorBrewer
-#' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
+#' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}} \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
 #' \dontrun{
 #' # Loading raster data
@@ -245,7 +245,7 @@ PLUGPhenAnoRFDPLUS <-
 #' }
 #' 
 #' @export
-PLUGPhenAnoRFDMapPLUS <-
+PhenRef2d <-
   function(phen, dates, h, anop, rge) {
     # a.Preparing dataset
     
@@ -272,7 +272,7 @@ PLUGPhenAnoRFDMapPLUS <-
     DOY[which(DOY == 366)] <- 365
     D1 <- cbind(DOY, phen)
     
-    if (length(unique(D1[, 2])) < 10 || (nrow(D1) - sum(is.na(D1))) < (0.1 * length(D1))) {
+    if (length(unique(D1[, 2])) < 10 | (nrow(D1) - sum(is.na(D1))) < (0.1 * length(D1))) {
       return(rep(NA, len2))
     }
     
