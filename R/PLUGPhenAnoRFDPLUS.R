@@ -17,13 +17,13 @@
 #' \dontrun{
 #' # ===================================================================================================================
 #' # Loading raster data
-#' #' library(terra)
+#' library(terra)
 #' library(npphen)
-#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 #' # load dates vector
 #' load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
 #' # load  reference forest shapefile
-#' load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
+#' MDDref <- vect(system.file("extdata", "MDDref.gpkg", package = "AVOCADO"))
 #' ## time series extraction for a single pixel
 #' px <- vect(cbind(-69.265, -12.48))
 #' plot(MDD[[1]])
@@ -31,7 +31,7 @@
 #'
 #' # extract series
 #' px_series <- as.numeric(terra::extract(MDD, px, ID = F))
-#' plot(MDD_dates, px_series, type = "l")
+#' plot(MDD_dates, px_series, type = "b", xlab = "", ylab = "NDMI")
 #' # Create the reference curve
 #' ref.ext <- ext(MDDref)
 #' ref.brick <- crop(MDD, ref.ext)
@@ -50,7 +50,7 @@
 #'
 #' @export
 PLUGPhenAnoRFDPLUS <-
-  function(x, phen, dates, h, anop, rge) {
+  function(x, phenref, dates, h, anop, rge) {
     # a.Preparing dataset
 
     if (length(rge) != 2) {
@@ -162,7 +162,7 @@ PLUGPhenAnoRFDPLUS <-
 #' library(terra)
 #' library(npphen)
 #' 
-#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+#' MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 #' # load dates vector
 #' load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
 #' # load  reference forest shapefile
