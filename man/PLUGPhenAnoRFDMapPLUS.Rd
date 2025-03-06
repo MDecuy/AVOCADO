@@ -4,13 +4,12 @@
 \alias{PLUGPhenAnoRFDMapPLUS}
 \title{Avocado algorithm - Wall-to-wall map version}
 \usage{
-PLUGPhenAnoRFDMapPLUS(s, phen, dates, h, anop, nCluster, outname, datatype,
-  rge)
+PLUGPhenAnoRFDMapPLUS(s, phenref, dates, h, anop, nCluster, outname, datatype)
 }
 \arguments{
 \item{s}{RasterStack time series of vegetation index (e.g. NDVI, EVI, NDMI)}
 
-\item{phen}{Numeric vector with the values of the reference vegetation}
+\item{phenref}{List which contains cumulative bivariate density distribution and maximum likelihood of the vegetation-index–time space based on reference vegetation obtained from \code{\link{PhenRef2d}}}
 
 \item{dates}{A date vector. The number of dates must be equal to the number of values of time series.}
 
@@ -23,8 +22,6 @@ PLUGPhenAnoRFDMapPLUS(s, phen, dates, h, anop, nCluster, outname, datatype,
 \item{outname}{Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster}
 
 \item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}}
-
-\item{rge}{A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)}
 }
 \value{
 RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
@@ -57,12 +54,14 @@ for (i in 2:fin) {
 PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
 
 ## Anomaly calculation
+# calculate reference likelihood 
+MDD_ref <- PhenRef2d(phen, d1, h = 1, rge = c(0, 10000))
 # checking availiable cores and leave one free
 nc1 <- parallel::detectCores() - 1
 PLUGPhenAnoRFDMapPLUS(
-  s = MDD, dates = MDD_dates, h = 1, phen = phen, anop = c(1:1063),
+  s = MDD, dates = MDD_dates, h = 1, phenref = MDD_ref, anop = c(1:1063),
   nCluster = nc1, outname = "YourDirectory/MDD_AnomalyLikelihood.tif",
-  datatype = "INT2S", rge = c(0, 10000)
+  datatype = "INT2S")
 )
 # The output file contains all the anomalies, followed by all their likelihoods
 # and thus has twice the number of layers as the input raster stack.
