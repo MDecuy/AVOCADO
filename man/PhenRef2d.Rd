@@ -29,11 +29,11 @@ Calculate the cumulative density distribution and their likelihood values based 
 library(terra)
 library(npphen)
 
-MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 # load dates vector
 load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
 # load  reference forest shapefile
-load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
+MDDref <- vect(system.file("extdata", "MDDref.gpkg", package = "AVOCADO"))
 # Create the reference curve
 ref.ext <- ext(MDDref)
 ref.brick <- crop(MDD, ref.ext)
@@ -45,12 +45,13 @@ for (i in 2:fin) {
   phen <- c(phen, pp)
   d1 <- c(d1, MDD_dates)
 }
-MDD_ref <- PhenRef2d(phen, d1, h = 1, anop = c(1:1063), rge = c(0, 10000))
+MDD_fref <- PhenRef2d(phen, d1, h = 1, anop = c(1:1063), rge = c(0, 10000))
 
 # plot reference curve + probabilities (same result as using PhenKplot())
-image(MDD_ref$x, MDD_ref$y, MDD_ref$cumDensity, xlab = "DOY", ylab = "NMDI", font.lab = 2, breaks = c(0, 0.5, 0.75, 0.9, 0.95), col = grDevices::heat.colors(n = 4, alpha = 0.6))
-contour(MDD_ref$x, MDD_ref$y, MDD_ref$cumDensity, levels = c(0, 0.5, 0.75, 0.9, 0.95), add = T, col = grDevices::grey(0.25), labcex = 1)
-lines(seq(1, 365), MDD_ref$MAXY, lwd = 3, col = "dark red")
+image(MDD_fref$x, MDD_fref$y, MDD_fref$cumDensity, xlab = "DOY", ylab = "NMDI", 
+font.lab = 2, breaks = c(0, 0.5, 0.75, 0.9, 0.95), col = grDevices::heat.colors(n = 4, alpha = 0.6))
+contour(MDD_fref$x, MDD_fref$y, MDD_fref$cumDensity, levels = c(0, 0.5, 0.75, 0.9, 0.95), add = T, col = grDevices::grey(0.25), labcex = 1)
+lines(seq(1, 365), MDD_fref$MAXY, lwd = 3, col = "dark red")
 
 }
 

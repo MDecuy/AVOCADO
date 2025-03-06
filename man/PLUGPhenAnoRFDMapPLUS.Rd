@@ -35,31 +35,17 @@ Calculate the Anomaly and their likelihood values (based on the difference betwe
 library(terra)
 library(npphen)
 
-MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 # load dates vector
 load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
-# load  reference forest shapefile
-load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
-# Create the reference curve
-ref.ext <- ext(MDDref)
-ref.brick <- crop(MDD, ref.ext)
-fin <- nrow(ref.brick) * ncol(ref.brick)
-phen <- as.numeric(terra::extract(ref.brick, 1))
-d1 <- MDD_dates
-for (i in 2:fin) {
-  pp <- as.numeric(terra::extract(ref.brick, i))
-  phen <- c(phen, pp)
-  d1 <- c(d1, MDD_dates)
-}
-PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
+# load  reference forest data (output from PhenRef2d)
+load(system.file("extdata", "MDD_forestReference.RData", package = "AVOCADO"))
 
 ## Anomaly calculation
-# calculate reference likelihood 
-MDD_ref <- PhenRef2d(phen, d1, h = 1, rge = c(0, 10000))
 # checking availiable cores and leave one free
 nc1 <- parallel::detectCores() - 1
 PLUGPhenAnoRFDMapPLUS(
-  s = MDD, dates = MDD_dates, h = 1, phenref = MDD_ref, anop = c(1:1063),
+  s = MDD, dates = MDD_dates, h = 1, phenref = MDD_fref, anop = c(1:1063),
   nCluster = nc1, outname = "YourDirectory/MDD_AnomalyLikelihood.tif",
   datatype = "INT2S")
 )

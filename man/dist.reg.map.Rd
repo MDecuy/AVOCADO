@@ -35,25 +35,11 @@ Continuous vegetation change detection
 \examples{
 \dontrun{
 #' # Loading raster data
-#' library(terra)
+library(terra)
 library(npphen)
-MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.grd", package = "AVOCADO"))
+MDD <- rast(system.file("extdata", "MDD_NDMI_1990_2020.tif", package = "AVOCADO"))
 # load dates vector
 load(system.file("extdata", "MDD_dates.RData", package = "AVOCADO"))
-# load  reference forest shapefile
-load(system.file("extdata", "MDDref.RData", package = "AVOCADO"))
-# Create the reference curve
-ref.ext <- ext(MDDref)
-ref.brick <- crop(MDD, ref.ext)
-fin <- nrow(ref.brick) * ncol(ref.brick)
-phen <- as.numeric(terra::extract(ref.brick, 1))
-d1 <- MDD_dates
-for (i in 2:fin) {
-  pp <- as.numeric(terra::extract(ref.brick, i))
-  phen <- c(phen, pp)
-  d1 <- c(d1, MDD_dates)
-}
-PhenKplot(phen, d1, h = 1, xlab = "DOY", ylab = "NDMI", rge = c(0, 10000))
 
 ## Disturbance/regrowth calculation
 # checking availiable cores and leave one free
