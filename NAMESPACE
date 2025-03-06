@@ -2,6 +2,7 @@
 
 export(PLUGPhenAnoRFDMapPLUS)
 export(PLUGPhenAnoRFDPLUS)
+export(PhenRef2d)
 export(dist.reg)
 export(dist.reg.map)
 import(RColorBrewer)
