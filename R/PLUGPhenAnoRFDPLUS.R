@@ -285,7 +285,7 @@ PLUGPhenAnoRFDPLUS <-
 #' @name PLUGPhenAnoRFDMapPLUS
 #' @description Calculate the Anomaly and their likelihood values (based on the difference between the pixel values and reference vegetation) for a RasterStack
 #' @author  Roberto O. Chavez, Mathieu Decuyper
-#' @param s RasterStack time series of vegetation index (e.g. NDVI, EVI, NDMI)
+#' @param s SpatRaster time series of vegetation index (e.g. NDVI, EVI, NDMI)
 #' @param anop Numeric vector with the number of values that are in x. For those values the anomalies and likelihoods will be calculated based on the phen. For example a time series has 450 values, so anop=c(1:450).
 #' @param phenref List which contains cumulative bivariate density distribution and maximum likelihood of the vegetation-index–time space based on reference vegetation obtained from \code{\link{PhenRef2d}}
 #' @param dates A date vector. The number of dates must be equal to the number of values of time series.
@@ -293,7 +293,7 @@ PLUGPhenAnoRFDPLUS <-
 #' @param nCluster Numeric. Number of CPU's to be used for the job.
 #' @param outname Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster
 #' @param datatype Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}
-#' @return RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
+#' @return SpatRaster of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
 #' @import npphen
 #' @import terra
 #' @import stats

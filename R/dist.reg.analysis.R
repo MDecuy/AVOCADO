@@ -810,7 +810,7 @@ dist.reg <-
 #' @name dist.reg.map
 #' @description Continuous vegetation change detection
 #' @author  Roberto O. Chávez, Mathieu Decuyper
-#' @param s RasterStack of anomalies and their likelihood created with \code{\link{PLUGPhenAnoRFDMapPLUS}}
+#' @param s SpatRaster of anomalies and their likelihood created with \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @param dates The julian dates for each scene in the time series brick. Should be in the following format: "YYYY-MM-DD"
 #' @param rfd The reference frequency distribution. Determines if an anomaly falls outside the 95 percent of the reference frequency distribution. For example a value that fall in a RDF >= 0.95, indicates that the detected anomaly belongs to the 5 percent of lowest values and is a potential disturbance/change.
 #' @param dstrb_thr sets a threshold (number of days) in which if a regrowth is detected within n days after a potential disturbance, then the candidate disturbance date is neglected.
@@ -819,7 +819,7 @@ dist.reg <-
 #' @param nCluster Numeric. Number of CPU's to be used for the job.
 #' @param outname Character vector with the output path and filename with extension or only the filename and extension if work directory was set. More information: See writeRaster
 #' @param datatype Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}
-#' @return The output will consist of a RasterStack with 16 bands: Band1=disturbance detection; Band2=corresponding anomalies band 1; Band3=regrowth detection; Band4=corresponding anomalies band 3; Band5= 2nd disturbance detection for data points that had a previous disturbance and regrowth; Band 6 etc.
+#' @return The output will consist of a SpatRaster with 16 bands: Band1=disturbance detection; Band2=corresponding anomalies band 1; Band3=regrowth detection; Band4=corresponding anomalies band 3; Band5= 2nd disturbance detection for data points that had a previous disturbance and regrowth; Band 6 etc.
 #' @seealso \code{\link{dist.reg}}
 #' @import terra
 #' @import stats
