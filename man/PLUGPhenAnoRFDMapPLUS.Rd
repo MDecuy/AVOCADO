@@ -7,7 +7,7 @@
 PLUGPhenAnoRFDMapPLUS(s, phenref, dates, h, anop, nCluster, outname, datatype)
 }
 \arguments{
-\item{s}{RasterStack time series of vegetation index (e.g. NDVI, EVI, NDMI)}
+\item{s}{SpatRaster time series of vegetation index (e.g. NDVI, EVI, NDMI)}
 
 \item{phenref}{List which contains cumulative bivariate density distribution and maximum likelihood of the vegetation-index–time space based on reference vegetation obtained from \code{\link{PhenRef2d}}}
 
@@ -24,7 +24,7 @@ PLUGPhenAnoRFDMapPLUS(s, phenref, dates, h, anop, nCluster, outname, datatype)
 \item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}}
 }
 \value{
-RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
+SpatRaster of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
 }
 \description{
 Calculate the Anomaly and their likelihood values (based on the difference between the pixel values and reference vegetation) for a RasterStack

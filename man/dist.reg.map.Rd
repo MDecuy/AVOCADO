@@ -8,7 +8,7 @@ dist.reg.map(s, dates, rfd, dstrb_thr, rgrow_thr, cdates, nCluster, outname,
   datatype)
 }
 \arguments{
-\item{s}{RasterStack of anomalies and their likelihood created with \code{\link{PLUGPhenAnoRFDMapPLUS}}}
+\item{s}{SpatRaster of anomalies and their likelihood created with \code{\link{PLUGPhenAnoRFDMapPLUS}}}
 
 \item{dates}{The julian dates for each scene in the time series brick. Should be in the following format: "YYYY-MM-DD"}
 
@@ -27,7 +27,7 @@ dist.reg.map(s, dates, rfd, dstrb_thr, rgrow_thr, cdates, nCluster, outname,
 \item{datatype}{Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}}
 }
 \value{
-The output will consist of a RasterStack with 16 bands: Band1=disturbance detection; Band2=corresponding anomalies band 1; Band3=regrowth detection; Band4=corresponding anomalies band 3; Band5= 2nd disturbance detection for data points that had a previous disturbance and regrowth; Band 6 etc.
+The output will consist of a SpatRaster with 16 bands: Band1=disturbance detection; Band2=corresponding anomalies band 1; Band3=regrowth detection; Band4=corresponding anomalies band 3; Band5= 2nd disturbance detection for data points that had a previous disturbance and regrowth; Band 6 etc.
 }
 \description{
 Continuous vegetation change detection
