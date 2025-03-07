@@ -9,9 +9,8 @@
 #' @param rge A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)
 #' @return List which contains cumulative bivariate density distribution (cumDensity), and maximum likelihood of the vegetation-index–time space (MAXY) 
 #' @import npphen
-#' @import terra
+#' @import stats
 #' @importFrom lubridate yday
-#' @import RColorBrewer
 #' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}} \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
 #' \dontrun{
@@ -160,6 +159,7 @@ PhenRef2d <-
 #' @return vector of length([x]*2) containing all anomalies, followed by their position within the reference frequency distribution (RFD)
 #' @seealso \code{\link{PLUGPhenAnoRFDMapPLUS}}
 #' @import npphen
+#' @import stats
 #' @importFrom lubridate yday
 #' @importFrom graphics abline
 #' @examples
@@ -296,8 +296,8 @@ PLUGPhenAnoRFDPLUS <-
 #' @return RasterStack of nlayers([s]stack*2) containing all anomalies, followed by their likelihoods
 #' @import npphen
 #' @import terra
+#' @import stats
 #' @importFrom lubridate yday
-#' @import RColorBrewer
 #' @seealso \code{\link{PLUGPhenAnoRFDPLUS}}
 #' @examples
 #' \dontrun{

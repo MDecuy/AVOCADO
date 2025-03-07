@@ -821,9 +821,8 @@ dist.reg <-
 #' @param datatype Character vector that determines the interpretation of values written to disk. More information: See \code{\link[terra]{writeRaster}}
 #' @return The output will consist of a RasterStack with 16 bands: Band1=disturbance detection; Band2=corresponding anomalies band 1; Band3=regrowth detection; Band4=corresponding anomalies band 3; Band5= 2nd disturbance detection for data points that had a previous disturbance and regrowth; Band 6 etc.
 #' @seealso \code{\link{dist.reg}}
-#' @import npphen
 #' @import terra
-#' @import RColorBrewer
+#' @import stats
 #'
 #' @examples
 #' \dontrun{
