@@ -12,7 +12,7 @@
 #' @seealso \code{\link{dist.reg.map}}
 #'
 #' @import npphen
-#' @import RColorBrewer
+#' @import stats
 #'
 #' @examples
 #' \dontrun{
