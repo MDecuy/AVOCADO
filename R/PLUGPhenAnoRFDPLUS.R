@@ -186,19 +186,14 @@ PhenRef2d <-
 #'
 #' @export
 PLUGPhenAnoRFDPLUS <-
-  function(x, phenref, dates, h, anop, rge) {
+  function(x, phenref, dates, h, anop) {
     # a.Preparing dataset
-
-    if (length(rge) != 2) {
-      stop("rge must be a vector of length 2")
-    }
-    if (rge[1] > rge[2]) {
-      stop("rge vector order must be minimum/maximum")
-    }
     if (length(dates) != length(x)) {
       stop("N of dates and files do not match")
     }
-
+    if (length(x) < length(anop)) {
+      stop("Inconsistent anop. Argument anop can't be grater than length(x)")
+    }
     # ref.min <- min(refp)
     # ref.max <- max(refp)
     ano.min <- min(anop)

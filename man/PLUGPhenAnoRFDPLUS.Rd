@@ -4,7 +4,7 @@
 \alias{PLUGPhenAnoRFDPLUS}
 \title{Avocado algorithm - Single pixel version}
 \usage{
-PLUGPhenAnoRFDPLUS(x, phenref, dates, h, anop, rge)
+PLUGPhenAnoRFDPLUS(x, phenref, dates, h, anop)
 }
 \arguments{
 \item{x}{numeric vector. Time series of vegetation index (e.g. NDVI, EVI, NDMI)}
@@ -16,8 +16,6 @@ PLUGPhenAnoRFDPLUS(x, phenref, dates, h, anop, rge)
 \item{h}{Numeric. Geographic hemisphere to define the starting date of the growing season. h=1 Northern Hemisphere; h=2 Southern Hemisphere.}
 
 \item{anop}{Numeric vector with the number of values that are in x. For those values the anomalies and likelihoods will be calculated based on the phen. For example a time series has 450 values, so anop=c(1:450).}
-
-\item{rge}{A vector containing minimum and maximum values of the response variable used in the analysis. We suggest the use of theoretically based limits. For example in the case of MODIS NDVI or EVI, it ranges from 0 to 10,000, so rge =c(0,10000)}
 }
 \value{
 vector of length([x]*2) containing all anomalies, followed by their position within the reference frequency distribution (RFD)
@@ -45,12 +43,12 @@ plot(px, add = T)
 px_series <- as.numeric(terra::extract(MDD, px, ID = F))
 plot(MDD_dates, px_series, type = "b", xlab = "", ylab = "NDMI")
 ## Anomaly calculation
-anom_rfd <- PLUGPhenAnoRFDPLUS(x = px_series, phenref = MDD_fref, dates = MDD_dates, h = 2, anop = c(1:1063), rge = c(1, 10000))
+anom_rfd <- PLUGPhenAnoRFDPLUS(x = px_series, phenref = MDD_fref, dates = MDD_dates, h = 2, anop = c(1:1063))
 }
 
 }
 \seealso{
-\code{\link{PLUGPhenAnoRFDMapPLUS}}
+\code{\link{PLUGPhenAnoRFDMapPLUS}} \code{\link{PhenRef2d}}
 }
 \author{
 Roberto O. Chavez, Mathieu Decuyper
